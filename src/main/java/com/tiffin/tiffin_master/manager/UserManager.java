@@ -1,7 +1,8 @@
 package com.tiffin.tiffin_master.manager;
 
 import com.tiffin.tiffin_master.manager.data.User;
+import com.tiffin.tiffin_master.manager.data.UserInfo;
 
 public interface UserManager {
-    void addUser(User user);
+    UserInfo addUser(User user);
 }

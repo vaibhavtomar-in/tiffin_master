@@ -19,7 +19,7 @@ public class UserManagerImpl implements UserManager {
     UserProvider userProvider;
     @Override
     public UserInfo addUser(User user) {
-        if (!(user.getUserType().equals("SELLER") || user.getUserType().equals("CUSTOMER"))){
+        if (user.getAction().equals("REGISTER") && !(user.getUserType().equals("SELLER") || user.getUserType().equals("CUSTOMER"))){
             LOGGER.info("badUserRequest");
             throw new LogitrackException(LogitracError.INVALID_INFO);
         }

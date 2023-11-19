@@ -1,5 +1,7 @@
 package com.tiffin.tiffin_master.manager.impl;
 
+import com.tiffin.tiffin_master.exception.LogitracError;
+import com.tiffin.tiffin_master.exception.LogitrackException;
 import com.tiffin.tiffin_master.manager.UserManager;
 import com.tiffin.tiffin_master.manager.data.User;
 import com.tiffin.tiffin_master.manager.data.UserInfo;
@@ -9,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 
 @Service
 public class UserManagerImpl implements UserManager {
@@ -20,20 +21,20 @@ public class UserManagerImpl implements UserManager {
     public UserInfo addUser(User user) {
         if (!(user.getUserType().equals("SELLER") || user.getUserType().equals("CUSTOMER"))){
             LOGGER.info("badUserRequest");
-            throw new RuntimeException("badUserRequest");
+            throw new LogitrackException(LogitracError.INVALID_INFO);
         }
         if (user.getUsername().equals("")){
-            throw new RuntimeException("ENTER VALID USERNAME");
+            throw new LogitrackException(LogitracError.USERNAME_INVALID);
         }
         User user1 = userProvider.getUser(user);
         if(user1 == null && user.getAction().equals("REGISTER")){
             return userProvider.addUser(user);
         } else if (user1 == null && user.getAction().equals("LOGIN")) {
-            throw new RuntimeException("USERNAME DOES NOT EXIST");
+            throw new LogitrackException(LogitracError.USERNAME_DOES_NOT_EXIST);
         } else if (user1.getUsername().equals(user.getUsername()) && !user1.getPassword().equals(user.getPassword()) && user.getAction().equals("LOGIN")) {
-            throw new RuntimeException("PASSWORD INCORRECT");
+            throw new LogitrackException(LogitracError.PASSWORD_INCORRECT);
         }else if (user1.getUsername().equals(user.getUsername()) && user.getAction().equals("REGISTER")) {
-            throw new RuntimeException("USERNAME NOT AVAILABLE");
+            throw new LogitrackException(LogitracError.USERNAME_UNAVAILABLE);
         }else if(user1.getUsername().equals(user.getUsername()) && user1.getPassword().equals(user.getPassword()) && user.getAction().equals("LOGIN")){
             UserInfo info = new UserInfo();
             info.setUserId(user1.getUserId());

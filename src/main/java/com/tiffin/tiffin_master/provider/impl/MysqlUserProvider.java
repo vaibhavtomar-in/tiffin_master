@@ -35,7 +35,11 @@ public class MysqlUserProvider implements UserProvider {
     @Override
     public User getUser(User user) {
         com.tiffin.tiffin_master.entities.User user1 = userRepository.getUser(user.getUsername());
-        return transform(user1);
+        if (user1 == null){
+            return null;
+        }else{
+            return transform(user1);
+        }
     }
     User transform(com.tiffin.tiffin_master.entities.User entity){
         User user = new User();

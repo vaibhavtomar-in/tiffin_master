@@ -35,7 +35,11 @@ public enum LogitracError {
             7,
             "Username invalid",
             "username is invalid"
-    );
+    ),SHOP_LIST_ABSENT(
+            8,
+                    "Shop detail Unavailable",
+                    "Shop detail is not given"
+    ),;
 
 
     private final int code;

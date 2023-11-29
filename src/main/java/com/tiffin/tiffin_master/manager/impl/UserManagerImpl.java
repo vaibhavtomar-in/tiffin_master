@@ -19,6 +19,10 @@ public class UserManagerImpl implements UserManager {
     UserProvider userProvider;
     @Override
     public UserInfo addUser(User user) {
+        if (user.getAction().equals("REGISTER") && user.getUserType() == null){
+            LOGGER.info("badUserRequest");
+            throw new LogitrackException(LogitracError.INVALID_INFO);
+        }
         if (user.getAction().equals("REGISTER") && !(user.getUserType().equals("SELLER") || user.getUserType().equals("CUSTOMER"))){
             LOGGER.info("badUserRequest");
             throw new LogitrackException(LogitracError.INVALID_INFO);
@@ -35,7 +39,9 @@ public class UserManagerImpl implements UserManager {
             throw new LogitrackException(LogitracError.PASSWORD_INCORRECT);
         }else if (user1.getUsername().equals(user.getUsername()) && user.getAction().equals("REGISTER")) {
             throw new LogitrackException(LogitracError.USERNAME_UNAVAILABLE);
-        }else if(user1.getUsername().equals(user.getUsername()) && user1.getPassword().equals(user.getPassword()) && user.getAction().equals("LOGIN")){
+        } else if (user.getShopList() == null && user.getAction().equals("REGISTER")) {
+            throw new LogitrackException(LogitracError.SHOP_LIST_ABSENT);
+        } else if(user1.getUsername().equals(user.getUsername()) && user1.getPassword().equals(user.getPassword()) && user.getAction().equals("LOGIN")){
             UserInfo info = new UserInfo();
             info.setUserId(user1.getUserId());
             info.setType(user1.getUserType());

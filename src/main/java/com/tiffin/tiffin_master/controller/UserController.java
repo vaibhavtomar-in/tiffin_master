@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -27,6 +30,21 @@ public class UserController {
         user.setPassword(webUser.getPassword());
         user.setUsername(webUser.getUsername());
         user.setAction(webUser.getAction());
+        if(webUser.getShopList() != null){
+            List<NewUserRequest.Shop> shopList = webUser.getShopList();
+            List<User.Shop> shops = new ArrayList<>();
+            for (NewUserRequest.Shop shop : shopList){
+                User.Shop shop1 = new User.Shop();
+                shop1.setName(shop.getName());
+                shop1.setAddress(shop.getAddress());
+                shop1.setState(shop.getState());
+                shop1.setCity(shop.getCity());
+                shop1.setLatitude(shop.getLatitude());
+                shop1.setLongitude(shop.getLongitude());
+                shops.add(shop1);
+            }
+            user.setShopList(shops);
+        }
         return user;
     }
     UserInfo transform(com.tiffin.tiffin_master.manager.data.UserInfo entity){

@@ -29,14 +29,6 @@ public class OrderItem {
     @Column(name = "last_updated_at")
     private LocalDateTime lastUpdatedAt;
 
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by",referencedColumnName = "id")
-    private User createdBy;
-
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by",referencedColumnName = "id")
-    private User updatedBy;
-
     public Integer getId() {
         return id;
     }
@@ -83,21 +75,5 @@ public class OrderItem {
 
     public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
         this.lastUpdatedAt = lastUpdatedAt;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public User getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(User updatedBy) {
-        this.updatedBy = updatedBy;
     }
 }

@@ -12,13 +12,15 @@ public class Item {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "seller_id",referencedColumnName = "id")
-    private User seller;
+    @ManyToOne(targetEntity = Shop.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "shop_id",referencedColumnName = "id")
+    private Shop shop;
 
-    @ManyToOne(targetEntity = Dish.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "dish_id",referencedColumnName = "id")
-    private Dish dish;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "veg_non_veg")
+    private String vegNonVeg;
 
     @Column(name = "price")
     private Float price;
@@ -35,14 +37,6 @@ public class Item {
     @Column(name = "last_updated_at")
     private LocalDateTime lastUpdatedAt;
 
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by",referencedColumnName = "id")
-    private User createdBy;
-
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by",referencedColumnName = "id")
-    private User updatedBy;
-
     public Integer getId() {
         return id;
     }
@@ -51,20 +45,28 @@ public class Item {
         this.id = id;
     }
 
-    public User getSeller() {
-        return seller;
+    public Shop getShop() {
+        return shop;
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
-    public Dish getDish() {
-        return dish;
+    public String getName() {
+        return name;
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getVegNonVeg() {
+        return vegNonVeg;
+    }
+
+    public void setVegNonVeg(String vegNonVeg) {
+        this.vegNonVeg = vegNonVeg;
     }
 
     public Float getPrice() {
@@ -105,21 +107,5 @@ public class Item {
 
     public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
         this.lastUpdatedAt = lastUpdatedAt;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public User getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(User updatedBy) {
-        this.updatedBy = updatedBy;
     }
 }

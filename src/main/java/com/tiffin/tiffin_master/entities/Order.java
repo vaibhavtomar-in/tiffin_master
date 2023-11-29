@@ -16,9 +16,9 @@ public class Order {
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
     private User customer;
 
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "seller_id",referencedColumnName = "id")
-    private User seller;
+    @ManyToOne(targetEntity = Shop.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "shop_id",referencedColumnName = "id")
+    private Shop shop;
 
     @Column(name = "order_date_time")
     private LocalDateTime orderDateTime;
@@ -38,14 +38,6 @@ public class Order {
     @Column(name = "last_updated_at")
     private LocalDateTime lastUpdatedAt;
 
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by",referencedColumnName = "id")
-    private User createdBy;
-
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by",referencedColumnName = "id")
-    private User updatedBy;
-
     public Integer getId() {
         return id;
     }
@@ -62,12 +54,12 @@ public class Order {
         this.customer = customer;
     }
 
-    public User getSeller() {
-        return seller;
+    public Shop getShop() {
+        return shop;
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
     public LocalDateTime getOrderDateTime() {
@@ -116,21 +108,5 @@ public class Order {
 
     public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
         this.lastUpdatedAt = lastUpdatedAt;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public User getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(User updatedBy) {
-        this.updatedBy = updatedBy;
     }
 }
